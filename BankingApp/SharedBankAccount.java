@@ -12,6 +12,9 @@ public class SharedBankAccount {
         this.balance = initBalance;
         this.lock = new ReentrantLock();
     }
+    public double getBalance() {
+        return this.balance;
+    }
 
     public void deposit(double amount) {
         try {
