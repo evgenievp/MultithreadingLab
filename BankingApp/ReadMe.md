@@ -16,3 +16,15 @@ Each thread tries to acquire the lock to perform an operation.
 If successful – the balance is updated. If not – the operation is skipped.
 
 This simulates real-life concurrency in accessing limited resources.
+
+It uses JUnit to test concurrent logic and mocks components using Mockito to isolate logic (e.g., mocking database access or logger services).
+
+Includes:
+Thread-safe counter tests
+Order service logic with mocked storage
+Delayed task execution verification
+
+Technologies:
+JUnit 5
+Mockito
+assertAll, assertEquals, verify()
