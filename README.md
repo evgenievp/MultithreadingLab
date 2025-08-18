@@ -1,5 +1,3 @@
-(In Progress)
-
 Multithreading Java Projects
 This repository contains 10 small projects demonstrating different multithreading concepts in Java.
 
