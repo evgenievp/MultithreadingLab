@@ -1,36 +1,48 @@
 package com.BlockQueue;
 
-import com.BlockQueue.Order;
+
+
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-
 public class StorageClass {
-    BlockingQueue queue;
+    private final BlockingQueue<Order> queue;
 
-    public StorageClass() {
-        this.queue = new ArrayBlockingQueue<>(10);
+    public StorageClass(int capacity) {
+        this.queue = new ArrayBlockingQueue<>(capacity);
     }
 
-    public void consumeEl() {
-        if (!queue.isEmpty()) {
-            Order first = (Order) queue.peek();
-            System.out.println("Order consumed " + first);
-            queue.poll();
+    public boolean addEl(Order order) {
+        boolean added = queue.offer(order);
+
+        if (added) {
+            System.out.println("Order added to storage: " + order);
+        } else {
+            System.out.println("Storage is full: " + order + " was rejected");
         }
-        else {
+
+        return added;
+    }
+
+    public Order consumeEl() {
+        Order order = queue.poll();
+
+        if (order == null) {
             System.out.println("Storage is empty");
+            return null;
         }
+
+        System.out.println("Order consumed: " + order);
+        return order;
     }
 
-    public void addEl(Order el) {
-        if (queue.size() < 10) {
-            queue.add(el);
-            System.out.println("Order %s added to storage " + el);
-        }
-        else {
-            System.out.println("Storage is full! ");
-        }
+    public Order consumeElWaiting() throws InterruptedException {
+        Order order = queue.take();
+        System.out.println("Order consumed: " + order);
+        return order;
     }
 
+    public int size() {
+        return queue.size();
+    }
 }
