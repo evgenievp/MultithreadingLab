@@ -1,4 +1,3 @@
-package com.BankingApp;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
@@ -6,7 +5,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class SharedBankAccount {
     private double balance;
-    private Lock lock;
+    private final Lock lock;
 
     public SharedBankAccount(double initBalance) {
         this.balance = initBalance;
@@ -17,8 +16,10 @@ public class SharedBankAccount {
     }
 
     public void deposit(double amount) {
+        boolean locked = false;
         try {
             if (lock.tryLock(100, TimeUnit.MILLISECONDS)) {
+                locked = true;
                 System.out.printf("Successful deposit operation.Old balance %.2f euro\n", balance);
                 this.balance += amount;
                 System.out.printf("New balance is: %.2f euro \n", balance);
@@ -31,12 +32,16 @@ public class SharedBankAccount {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
-            lock.unlock();
+            if (locked) {
+                lock.unlock();
+            }
         }
     }
     public void withdraw(double amount) {
+        boolean locked = false;
         try {
             if (lock.tryLock(200, TimeUnit.MILLISECONDS)) {
+                locked = true;
                 if (amount <= this.balance) {
                     this.balance -= amount;
                     System.out.printf("Successful withdraw of %.2f euro. Money left: %.2f euro. \n", amount, balance);
@@ -50,8 +55,9 @@ public class SharedBankAccount {
         }catch (InterruptedException e) {
             throw new RuntimeException(e);
         }finally {
-            lock.unlock();
+            if (locked) {
+                lock.unlock();
+            }
         }
     }
-
 }

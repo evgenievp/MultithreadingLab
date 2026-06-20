@@ -1,5 +1,4 @@
 
-import com.BankingApp.SharedBankAccount;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.*;
@@ -13,17 +12,20 @@ class BankAccountTest {
         SharedBankAccount account = new SharedBankAccount(1000);
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
-        Runnable deposit = () -> {
+        Runnable depositTask = () -> {
             for (int i = 0; i < 10; i++) {
                 account.deposit(10);
             }
         };
 
-        executor.submit(deposit);
-        executor.submit(deposit);
-        executor.shutdown();
-        executor.awaitTermination(2, TimeUnit.SECONDS);
+        executor.submit(depositTask);
+        executor.submit(depositTask);
 
-        assertTrue(account.getBalance() >= 1000); // basic validation
+        executor.shutdown();
+        boolean finished = executor.awaitTermination(2, TimeUnit.SECONDS);
+
+        assertTrue(finished);
+        assertEquals(1200, account.getBalance(), 0.001);
     }
+
 }
