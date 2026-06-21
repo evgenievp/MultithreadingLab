@@ -1,14 +1,12 @@
 package com.MathWorkderPool;
 
 public class GeometricWorker {
-    public GeometricWorker(){}
 
-
-    public long squareVolume(long n){
-        return n * n;
+    public long squareArea(long side) {
+        return side * side;
     }
 
-    public long rectangleVolume(long a, long b){
+    public long rectangleArea(long a, long b) {
         return a * b;
     }
 }

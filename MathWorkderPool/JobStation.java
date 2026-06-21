@@ -8,7 +8,7 @@ public class JobStation {
     public static void main(String[] args) {
         AlgebraicWorker algebraicWorker = new AlgebraicWorker();
         GeometricWorker geometricWorker = new GeometricWorker();
-        PossibilitiesWorker possibilitiesWorker = new PossibilitiesWorker();
+        ProbabilityWorker possibilitiesWorker = new ProbabilityWorker();
         Random random = new Random();
 
         Callable<List<Object>> worker1 = () -> {
@@ -32,10 +32,10 @@ public class JobStation {
                 if (choice == 0) {
                     int a = random.nextInt(10, 100);
                     int b = random.nextInt(10, 100);
-                    results.add(geometricWorker.rectangleVolume(a, b));
+                    results.add(geometricWorker.rectangleArea(a, b));
                 } else {
                     int n = random.nextInt(4, 15);
-                    results.add(geometricWorker.squareVolume(n));
+                    results.add(geometricWorker.squareArea(n));
                 }
             }
             return results;
@@ -43,7 +43,7 @@ public class JobStation {
         Callable<List<Object>> worker3 = () -> {
             List<Object> results = new ArrayList<>();
             for (int i = 0; i < 10; i++) {
-                results.add(possibilitiesWorker.calculatePossibility());
+                results.add(possibilitiesWorker.calculateProbability());
             }
             return results;
         };
