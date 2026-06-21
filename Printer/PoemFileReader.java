@@ -1,32 +1,21 @@
 package com.Printer;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
-
 public class PoemFileReader {
-    private String path;
-    private List<String> text;
+    private final Path path;
 
     public PoemFileReader(String path) {
-        this.path = path;
-        this.text = new ArrayList<>();
+        this.path = Path.of(path);
     }
 
     public List<String> read() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                text.add(line);
-            }
-
-        } catch (
-                IOException e) {
-            e.printStackTrace();
+        try {
+            return Files.readAllLines(path);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not read file: " + path, e);
         }
-        return text;
     }
 }
