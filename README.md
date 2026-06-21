@@ -1,52 +1,143 @@
-Multithreading Java Projects
-This repository contains 10 small projects demonstrating different multithreading concepts in Java.
+ Java Multithreading Practice Projects
 
-1. Basic Multithreading – Printer Sync
+This repository contains 10 small Java demo projects focused on core multithreading and concurrency concepts.
+
+The goal of these projects is not to build production-ready applications, but to demonstrate how different Java concurrency tools work in simple, isolated examples.
+
+Each project focuses on a specific topic such as thread synchronization, shared resources, locks, thread pools, blocking queues, scheduled tasks, futures, parallel processing, and testing concurrent code.
+
+ Projects
+
+ 1. Synchronized Printer – Shared Resource Demo
+
 Technologies: Thread, Runnable, synchronized
-Project: A classic printer where multiple threads print letters or words sequentially with synchronization.
-Goal: Understand synchronized, shared resources, and locking.
 
-2. Banking App – ReentrantLock
+A simple printer simulation where multiple threads share the same printer object and print lines from a text file.
+
+The shared line counter is protected with a synchronized method, preventing duplicated or skipped lines.
+
+Goal: Understand shared mutable state, synchronization, and basic thread coordination.
+
+---
+
+ 2. Banking App – ReentrantLock Demo
+
 Technologies: ReentrantLock, tryLock(), finally
-Project: A banking system where users withdraw and deposit money in a shared account.
-Goal: Protect shared resources from race conditions.
 
-3. Car Race Simulator – ExecutorService
-Technologies: ExecutorService, FixedThreadPool, shutdown()
-Project: A car race simulation where each thread represents a car running laps.
-Goal: Work with ExecutorService and thread management.
+A banking simulation where multiple threads deposit and withdraw money from the same shared bank account.
 
-4. Math Worker Pool – Callable & Future
-Technologies: Callable, Future, submit(), get()
-Project: Workers that calculate factorials, prime numbers, and return results.
-Goal: Retrieve results from threads.
+Access to the account balance is protected with a ReentrantLock.
 
-5. Task Scheduler – ScheduledExecutorService
-Technologies: ScheduledExecutorService, scheduleAtFixedRate
-Project: A program simulating an alarm or reminder running periodically.
-Goal: Work with delayed and repeated tasks.
+Goal: Understand explicit locking, race conditions, and safe access to shared resources.
 
-6. Producer-Consumer – BlockingQueue
-Technologies: BlockingQueue, ArrayBlockingQueue
-Project: One producer creates messages, multiple consumers process them.
-Goal: Create queues and control access.
+---
 
-7. Parallel Search – WorkStealingPool
-Technologies: WorkStealingPool, ForkJoin, RecursiveTask
-Project: Parallel search for an element in a large list or set.
-Goal: Work with dynamic and optimized threads.
+ 3. Car Race Simulator – ExecutorService Demo
 
-8. File Watcher – WatchService
+Technologies: ExecutorService, FixedThreadPool, Callable, Future, shutdown()
+
+A race simulation where each car runs as a separate task in a fixed thread pool.
+
+Each car has its own progress, speed, lap count, and pit stop logic. At the end, results can be collected and sorted into a final ranking.
+
+Goal: Understand task execution, thread pools, result collection, and executor shutdown.
+
+---
+
+ 4. Math Worker Pool – Callable and Future Demo
+
+Technologies: Callable, Future, submit(), get(), TimeoutException
+
+Several worker tasks perform simple mathematical operations such as factorial calculation, prime number checks, geometry calculations, and probability calculations.
+
+Each worker returns results through a Future.
+
+Goal: Understand how to submit tasks that return values and how to retrieve asynchronous results.
+
+---
+
+ 5. Task Scheduler – ScheduledExecutorService Demo
+
+Technologies: ScheduledExecutorService, schedule(), scheduleAtFixedRate()
+
+A small scheduler simulation that runs tasks after a delay or repeatedly at fixed intervals.
+
+Example use cases include reminders, alarms, or periodic status messages.
+
+Goal: Understand delayed and repeated task execution.
+
+---
+
+ 6. Producer-Consumer – BlockingQueue Demo
+
+Technologies: BlockingQueue, ArrayBlockingQueue, put(), take(), offer(), poll()
+
+A producer-consumer simulation where one or more producers create orders and multiple consumers process them.
+
+The queue handles thread-safe communication between producers and consumers without manual locking.
+
+Goal: Understand producer-consumer workflows and blocking queue behavior.
+
+---
+
+ 7. Parallel Search – ForkJoin / WorkStealingPool Demo
+
+Technologies: ForkJoinPool, RecursiveTask, WorkStealingPool
+
+A parallel search demo that splits a large collection into smaller tasks and searches for a target value concurrently.
+
+Goal: Understand task splitting, recursive parallelism, and work-stealing execution.
+
+---
+
+ 8. File Watcher – WatchService Demo
+
 Technologies: WatchService, Files, Path, ConcurrentLinkedQueue
-Project: Monitor a folder for new files and notify on new .txt files.
-Goal: React in real time and handle events.
 
-9. Statistics App – Parallel Streams
-Technologies: parallelStream, Collectors, Optional
-Project: Statistics from a list of numbers – average, median, mode.
-Goal: Use functional style with parallel streams.
+A file monitoring demo that watches a folder and reacts when new files are created.
 
-10. Multithreaded Test System – JUnit + Mockito
-Technologies: JUnit, Mockito, assert, Thread.sleep()
-Project: Unit tests for the above classes, mocking Logger and DatabaseService.
-Goal: Demonstrate best practices and coverage.
+Detected file events can be stored in a concurrent queue for further processing.
+
+Goal: Understand file system events and thread-safe event handling.
+
+---
+
+ 9. Statistics App – Parallel Streams Demo
+
+Technologies: parallelStream(), Collectors, Optional
+
+A statistics demo that processes a list of numbers using Java streams and parallel streams.
+
+It calculates values such as average, minimum, maximum, median, or mode.
+
+Goal: Understand functional-style data processing and the difference between sequential and parallel stream execution.
+
+---
+
+ 10. Multithreaded Tests – JUnit and Mockito
+
+Technologies: JUnit, Mockito, assertions, concurrent execution tests
+
+Unit tests for selected demo classes, focusing on correctness, expected results, and basic concurrent behavior.
+
+Some tests may use mocked dependencies such as a logger or external service.
+
+Goal: Practice testing concurrent code and validating thread-safe behavior.
+
+ Main Concepts Covered
+
+ Creating and starting threads
+ Implementing Runnable and Callable
+ Synchronizing access to shared resources
+ Using explicit locks with ReentrantLock
+ Using thread pools with ExecutorService
+ Returning results with Future
+ Scheduling repeated tasks
+ Using blocking queues for producer-consumer workflows
+ Splitting work with ForkJoinPool
+ Processing data with parallel streams
+ Writing basic tests for concurrent code
+
+ Note
+
+These projects are educational demos. Each project is intentionally small and focused on one main concurrency concept.
